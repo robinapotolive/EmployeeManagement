@@ -13,5 +13,13 @@ namespace EmployeeManagement.Models
         Task<Employee> Update(Employee employee);
         Task<Employee> Delete(int id);
 
+        Task<IEnumerable<Employee>> GetEmployeeByRawSql();
+
+        Task<IEnumerable<Employee>> GetAllEmployeeByUsingStoredProcedure();
+
+        Task<IEnumerable<Employee>> GetEmployeeByNameParameter(string name);
+
+        Task<IEnumerable<Employee>> GetEmployeeByNameInterpolated(string name);
+
     }
 }

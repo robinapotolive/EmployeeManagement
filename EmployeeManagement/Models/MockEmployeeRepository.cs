@@ -32,9 +32,24 @@ namespace EmployeeManagement.Models
             return await Task.FromResult(emp);
         }
 
+        public Task<IEnumerable<Employee>> GetAllEmployeeByUsingStoredProcedure()
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Employee> GetEmployee(int id)
         {
             return await Task.FromResult(employees.Find(x => x.Id == id));            
+        }
+
+        public Task<IEnumerable<Employee>> GetEmployeeByNameInterpolated(string name)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeeByRawSql()
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Employee>> GetEmployees()
@@ -50,6 +65,11 @@ namespace EmployeeManagement.Models
             emp.Age = emp.Age;
             employees.Add(emp);
             return await Task.FromResult(emp);
+        }
+
+        Task<IEnumerable<Employee>> IEmployeeRepository.GetEmployeeByNameParameter(string name)
+        {
+            throw new NotImplementedException();
         }
     }
 }

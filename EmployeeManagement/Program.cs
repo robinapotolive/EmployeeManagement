@@ -21,6 +21,9 @@ namespace EmployeeManagement
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    //to call the ocelot.json file
+                    webBuilder.ConfigureAppConfiguration(config =>                   
+                       config.AddJsonFile("ocelot.json"));
                 });
     }
 }

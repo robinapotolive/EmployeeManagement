@@ -32,9 +32,38 @@ namespace EmployeeManagement.Models
             return emp;
         }
 
+        public async Task<IEnumerable<Employee>> GetAllEmployeeByUsingStoredProcedure()
+        {
+            return await appDbContext.Employees
+                    .FromSqlRaw("EXECUTE dbo.GetAllEmployees")
+                    .ToListAsync();
+        }
+
         public async Task<Employee> GetEmployee(int id)
         {
             return await appDbContext.Employees.FindAsync(id);          
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeeByNameInterpolated(string name)
+        {
+            return await appDbContext.Employees
+                         .FromSqlInterpolated($"EXECUTE dbo.GetAllEmployeeByName {name}")
+                         .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeeByNameParameter(string name)
+        {
+            return await appDbContext.Employees
+                    .FromSqlRaw("EXECUTE dbo.GetAllEmployeeByName {0}", name)
+                    .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeeByRawSql()
+        {
+            return await appDbContext.Employees
+                            .FromSqlRaw("SELECT * FROM dbo.Employees")
+                            .OrderBy(o => o.Name)
+                            .ToListAsync();            
         }
 
         public async Task<IEnumerable<Employee>> GetEmployees()

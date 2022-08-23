@@ -19,6 +19,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 
 namespace EmployeeManagement
 {
@@ -48,6 +50,9 @@ namespace EmployeeManagement
 
             //to add cross origin resource sharing.
             services.AddCors();
+
+            //to add ocelot for api gateway
+            services.AddOcelot();
 
             services.AddControllers();
 
@@ -111,6 +116,7 @@ namespace EmployeeManagement
             //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
             services.AddScoped<IEmployeeRepository, SqlEmployeeRepository>();
             services.AddScoped<IUserFormRepository, UserFormRepository>();
+            services.AddScoped<IEmployeePayrollRepository, EmployeePayrollReoisitory>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -138,6 +144,9 @@ namespace EmployeeManagement
             });
 
             app.UseRouting();
+
+            //to Use Ocelot for api gateway
+            app.UseOcelot().Wait();
 
             //DefaultFilesOptions defaultFilesOptions = new DefaultFilesOptions();
             //defaultFilesOptions.DefaultFileNames.Clear();

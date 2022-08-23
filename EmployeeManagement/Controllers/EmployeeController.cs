@@ -38,6 +38,7 @@ namespace EmployeeManagement.Controllers
             }
         }
 
+
         [HttpGet]
         public async Task<IActionResult> Get(int id)
         {
@@ -115,8 +116,77 @@ namespace EmployeeManagement.Controllers
             catch(Exception ex)
             {
                 return BadRequest(ex.Message);
+            }           
+        }
+
+        /// <summary>
+        /// This method is used to demo raw sql query.
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("getAllEmployeeByRawSql")]
+        public async Task<IActionResult> GetAllEmployeeByRawSql()
+        {
+            try
+            {
+                var result = await _employeeRepository.GetEmployeeByRawSql();
+                return Ok(result);
             }
-           
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// This method is used to call a store procedure
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetAllEmployeeByStoredProcedure")]
+        public async Task<IActionResult> GetAllEmployeeByStoredProcedure()
+        {
+            try
+            {
+                var result = await _employeeRepository.GetAllEmployeeByUsingStoredProcedure();
+                return Ok(result);
+
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetEmployeeByNameParameter")]
+        public async Task<IActionResult> GetEmployeeByNameParameter(string name)
+        {
+            try
+            {
+                var result = await _employeeRepository.GetEmployeeByNameParameter(name);
+                return Ok(result);
+                                    
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("GetEmployeeByNameInterpolated")]
+        public async Task<IActionResult> GetEmployeeByNameInterpolated(string name)
+        {
+            try
+            {
+                var result = await _employeeRepository.GetEmployeeByNameInterpolated(name);
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

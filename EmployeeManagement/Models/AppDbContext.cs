@@ -17,6 +17,7 @@ namespace EmployeeManagement.Models
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<User> UserForm { get; set; }
+        public DbSet<Payroll> Payrolls { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
